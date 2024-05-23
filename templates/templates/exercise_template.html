@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/exercise.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo.jpeg')}}">
+    <title>Video Stream</title>
+</head>
+<body>
+
+    <div class="video-container">
+        {% block video_route %} {% endblock video_route %}
+        <div class="child-elements-1">
+            <!-- <img src="{{ url_for('static', filename='img/Logo.jpeg')}}" alt="" width="10" height="10"> -->
+            <h1 id="Heading">FORM PERFECTOR</h1>
+            <a id="backbtn" href="/"><button>Back to home</button></a>
+        </div>
+    </div>
+    
+</body>
+</html>
