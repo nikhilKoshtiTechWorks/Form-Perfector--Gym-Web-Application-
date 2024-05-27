@@ -12,9 +12,12 @@
     <div class="video-container">
         {% block video_route %} {% endblock video_route %}
         <div class="child-elements-1">
-            <!-- <img src="{{ url_for('static', filename='img/Logo.jpeg')}}" alt="" width="10" height="10"> -->
+            <img id="image" src="{{ url_for('static', filename='img/Logo.jpeg')}}" alt="" width="10" height="10">
             <h1 id="Heading">FORM PERFECTOR</h1>
-            <a id="backbtn" href="/"><button>Back to home</button></a>
+            <a href="/"><button id="backbtn">Back to home</button></a>
+        </div>
+        <div class="child-elements-2">
+            <a href="/"><button id="smlbtn">Back to home</button></a>
         </div>
     </div>
     

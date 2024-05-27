@@ -9,6 +9,7 @@
 
 body {
     background-color: #0F1020;
+    margin: 0;
 }
 
 .section-title {
@@ -28,6 +29,7 @@ h1 {
     text-align: center;
     color: #C5EBC3;
     padding: 20px;
+    margin: 0;
 }
 
 nav {
@@ -156,52 +158,15 @@ nav ul a:hover {
 
 /*Ends here*/
 
-/* .exercise img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    cursor: pointer;
-    transition: 0.2s ease;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: #D6DBD2;
-    border-width: 2px;
-}
-
-.exercise img:hover {
-    transform: scale(1.08);
-}
-
-.exercise h4{
-    color: #C5EBC3;
-    padding: 5px;
-    text-align: center;
-}
-
-.exercise button {
-    padding: 5px;
-    border: none;
-    outline: none;
-    background-color: #E75A7C;
-    color: #0F1020;
-    cursor: pointer;
-    border-radius: 4px;
-    border-style: solid;
-    border-color: #D6DBD2;
-    border-width: 1px;
-    font-size: 20px;
-    display: block;
-    margin: 0 auto;
-    transition: 0.2s all;
-}
-
-.exercise button:hover {
-    transform: scale(1.08);
-} */
 
 @media screen and (max-width: 1000px) {
     .exercises {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    h1 {
+        padding: 15px;
+        margin: 0;
     }
 }
 
@@ -220,61 +185,12 @@ nav ul a:hover {
     .section-title {
         padding: 5px;
         margin: 0px 10px 0px;
+        font-size: large;
     }
-}
 
-
-
-/* For the biceps.html  */
-
-biceps-* {
-    margin: 0;
-    padding: 0;
-    /* box-sizing: border-box; */
-} 
-
-biceps-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #0F1020;
-    height: 100vh;
-}
-.video-container {
-    /*To center the div*/
-    display: flex;
-    justify-content: center;   /*Center horizontally*/
-    align-items: center;       /*Center vertically*/
-
-    position: relative;   /*Parent class*/
-    border-radius: 5px;
-    border: 1px solid #D6DBD2;
-    box-sizing: border-box; /*Include border in element's dimensions*/
-    width: 100%; /* Adjust width and height as needed */
-    height: 99vh;
-}
-
-.video-container img {
-    width: 100%;
-    height: 100%;
-}
-
-.video {
-    object-fit: cover; /*Avoids the streching of image*/
-}
-
-.child-elements {
-    position: absolute;
-    top: 0;
-    left: 30;
-    padding: 10px;
-    background: rgba(255,255,255,0.6);
-}
-
-@media screen and (max-width: 1000px) {
-    .video-container {
-        width: 100%;
-        height: 99vh;
+    h1 {
+        padding: 10px;
+        margin: 0;
+        font-size: x-large;
     }
 }
