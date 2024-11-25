@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Form</title>
+    <script>
+        let selectedAngles = [];
+
+        function addAngleFields() {
+            const angleCount = document.getElementById('angleCount').value;
+            const container = document.getElementById('angleFields');
+            
+            // Get current number of angle fields
+            const currentFields = container.children.length / 2; // each angle has a div and br
+
+            const angleNames = [
+                "left shoulder",
+                "right shoulder",
+                "left elbow",
+                "right elbow",
+                "left wrist",
+                "right wrist",
+                "left hip",
+                "right hip",
+                "left knee",
+                "right knee",
+                "left ankle",
+                "right ankle"
+            ];
+
+            // Preserve existing values
+            const existingValues = [];
+            for (let i = 0; i < currentFields; i++) {
+                existingValues.push({
+                    angle: document.getElementById(`angleName${i}`).value,
+                    min: document.getElementById(`minValue${i}`).value,
+                    max: document.getElementById(`maxValue${i}`).value,
+                });
+            }
+
+            // Add new fields if angleCount is greater than currentFields
+            for (let i = currentFields; i < angleCount; i++) {
+                container.innerHTML += `
+                    <div>
+                        <label for="angleName${i}">Angle Name ${i + 1}:</label>
+                        <select id="angleName${i}" name="angleName${i}" onchange="updateSelectedAngles()" required>
+                            <option value="" disabled selected>Select an angle</option>
+                            ${angleNames.map(name => `<option value="${name}">${name}</option>`).join('')}
+                        </select>
+                        <label for="minValue${i}">Min Value:</label>
+                        <input type="number" id="minValue${i}" name="minValue${i}" value="0" required>
+                        <label for="maxValue${i}">Max Value:</label>
+                        <input type="number" id="maxValue${i}" name="maxValue${i}" value="180" required>
+                    </div>
+                    <br>
+                `;
+            }
+
+            // Restore values for existing fields
+            for (let i = 0; i < currentFields; i++) {
+                if (i < angleCount) {
+                    document.getElementById(`angleName${i}`).value = existingValues[i].angle;
+                    document.getElementById(`minValue${i}`).value = existingValues[i].min;
+                    document.getElementById(`maxValue${i}`).value = existingValues[i].max;
+                } else {
+                    container.removeChild(container.lastElementChild); // Remove extra fields
+                    container.removeChild(container.lastElementChild); // Also remove the corresponding min and max inputs
+                }
+            }
+        }
+
+        function updateSelectedAngles() {
+            const angleCount = document.getElementById('angleCount').value;
+
+            // Reset selected angles
+            selectedAngles = [];
+            for (let i = 0; i < angleCount; i++) {
+                const angleSelect = document.getElementById(`angleName${i}`);
+                if (angleSelect.value) {
+                    selectedAngles.push(angleSelect.value);
+                }
+            }
+
+            // Update dropdowns to disable selected angles
+            for (let i = 0; i < angleCount; i++) {
+                const angleSelect = document.getElementById(`angleName${i}`);
+                const options = angleSelect.querySelectorAll('option');
+
+                options.forEach(option => {
+                    option.disabled = selectedAngles.includes(option.value) && angleSelect.value !== option.value;
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Exercise Input Form</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="#" method="POST">
+        <label for="exerciseName">Exercise Name:</label>
+        <input type="text" id="exerciseName" name="exerciseName" required>
+        <br><br>
+        
+        <label for="angleCount">Number of Targeted Angles:</label>
+        <input type="number" id="angleCount" name="angleCount" min="1" value="1" required onchange="addAngleFields()">
+        <br><br>
+
+        <div id="angleFields">
+            <!-- Dynamic angle fields will be added here -->
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

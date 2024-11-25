@@ -1,40 +1,98 @@
-from flask import Flask, Response, render_template, request, jsonify
+from flask import Flask, Response, render_template, request, jsonify, flash, redirect, url_for
 from exercise import *
 
+import os
+import psycopg2
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
+app.secret_key = "hello"            # used for encryption and decryption
+connection = psycopg2.connect(os.environ["DATABASE_URL"])
 
 @app.route('/')
 def index():
     return render_template("index.html")
 
-@app.route('/trial')
-def trial():
-    return render_template("landing.html")
-    
-@app.route('/biceps')
-def biceps():
-    return render_template('biceps.html')
+# Route to render the exercise page
+@app.route('/exercise/<exercise_name>')          # getting the exercise_name from the index.html
+def exercise(exercise_name):
+    # video = exercise_name
+    return render_template('exercise_template.html', video = exercise_name)
 
-@app.route('/triceps')
-def triceps():
-    return render_template('triceps.html')
+@app.route('/insert', methods = ["POST", "GET"])
+def insert():
+    if request.method == "POST":
+        # Assuming you have the following variables from your form
+        exercise_name = request.form["exerciseName"]
+        targeted_angles = int(request.form["angleCount"])
+        min_values = []
+        max_values = []
+        angle_names = []  # This should be populated with the names of the angles
 
-@app.route('/plank')
-def plank():
-    return render_template('plank.html')
+        for i in range(targeted_angles):
+            min_value = request.form[f"minValue{i}"]
+            max_value = request.form[f"maxValue{i}"]
+            angle_name = request.form[f"angleName{i}"]  # Get the angle name
+            min_values.append(min_value)
+            max_values.append(max_value)
+            angle_names.append(angle_name)
+
+        # Construct column names for the SQL query
+        columns = []
+        values = []
+
+        for angle in angle_names:
+            min_col = f"min_{angle.replace(' ', '_').lower()}"
+            max_col = f"max_{angle.replace(' ', '_').lower()}"
+            columns.append(min_col)
+            columns.append(max_col)
+
+        for i in range(targeted_angles):
+            values.append(min_values[i])
+            values.append(max_values[i])
+
+        # Construct the full SQL insert statement
+        column_string = ", ".join(["exercise_name"] + columns)
+        print(column_string)
+        value_placeholders = ", ".join(["%s"] + ["%s"] * (2 * targeted_angles))     # this is a place holder we will pass the values in .execute()
+        print(value_placeholders)
+        sql_query = f"INSERT INTO exercises ({column_string}) VALUES ({value_placeholders}) RETURNING eid"
+        print(sql_query)
+
+        with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(sql_query, [exercise_name] + values)     # exercise_name & values goes in a value_placeholders where %s is present respectively
+
+        connection.commit()
+        cursor.close()
+
+        flash('Exercise details inserted successfully!', 'success')
+        return redirect(url_for('insert'))
+
+
+    else:
+        return render_template('insert.html')
 
 # Routes to stream video frames
-@app.route('/biceps_video')
-def biceps_video():
-    return Response(biceps_processing(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video_stream/<exercise_video>')
+def exercise_video(exercise_video):
+    sql_query = f"SELECT * FROM exercises WHERE exercise_name = '{exercise_video}'"
+    
+    with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(sql_query)
+                result = cursor.fetchall()
 
-@app.route('/triceps_video')
-def triceps_video():
-    return Response(triceps_processing(), mimetype='multipart/x-mixed-replace; boundary=frame')
+                arr = [0] * 24
 
-@app.route('/plank_video')
-def plank_video():
-    return Response(plank_processing(), mimetype='multipart/x-mixed-replace; boundary=frame')
+                for i in range(2, len(result[0])):
+  
+                    # Converts each element to an integer
+                    arr[i-2] = int(result[0][i])
+
+    return Response(exercise_processing(arr), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":

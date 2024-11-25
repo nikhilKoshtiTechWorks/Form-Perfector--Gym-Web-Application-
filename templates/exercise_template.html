@@ -10,7 +10,8 @@
 <body>
 
     <div class="video-container">
-        {% block video_route %} {% endblock video_route %}
+        <!-- Using 'video' variable to avoid the repeating html pages -->
+        <img class="video" src="{{ url_for('exercise_video', exercise_video=video) }}" alt="Video Stream">
         <div class="child-elements-1">
             <img id="image" src="{{ url_for('static', filename='img/Logo.jpeg')}}" alt="" width="10" height="10">
             <h1 id="Heading">FORM PERFECTOR</h1>
