@@ -116,7 +116,7 @@ def exercise_processing(arr):
                 # Logic for threshold value
 
                 # for left_shoulder_angle
-                if arr[0] < left_shoulder_angle < arr[1]:    
+                if arr[0][2] < left_shoulder_angle < arr[0][3]:    
                     lsx = int(left_shoulder[0] * 640)
                     lsy = int(left_shoulder[1] * 480)
 
@@ -129,7 +129,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lsx,lsy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
                 
                 # for right_shoulder_angle
-                if arr[2] < right_shoulder_angle < arr[3]:
+                if arr[0][4] < right_shoulder_angle < arr[0][5]:
                     rsx = int(right_shoulder[0] * 640)
                     rsy = int(right_shoulder[1] * 480)
 
@@ -142,7 +142,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (rsx,rsy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
 
                 # for left_elbow_angle
-                if arr[4] < left_elbow_angle < arr[5]:     
+                if arr[0][6] < left_elbow_angle < arr[0][7]:     
                     lex = int(left_elbow[0] * 640)
                     ley = int(left_elbow[1] * 480)
 
@@ -155,7 +155,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lex,ley), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
 
                 # for right_elbow_angle
-                if arr[6] < right_elbow_angle < arr[7]:    
+                if arr[0][8] < right_elbow_angle < arr[0][9]:    
                     rex = int(right_elbow[0] * 640)
                     rey = int(right_elbow[1] * 480)
 
@@ -168,7 +168,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (rex,rey), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)    
 
                 # for left_wrist_angle
-                if arr[8] < left_wrist_angle < arr[9]:     
+                if arr[0][10] < left_wrist_angle < arr[0][11]:     
                     lwx = int(left_wrist[0] * 640)
                     lwy = int(left_wrist[1] * 480)
 
@@ -182,7 +182,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lwx,lwy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
 
                 # for right_wrist_angle
-                if arr[10] < right_wrist_angle < arr[11]:
+                if arr[0][12] < right_wrist_angle < arr[0][13]:
                     rwx = int(right_wrist[0] * 640)
                     rwy = int(right_wrist[1] * 480)
 
@@ -195,7 +195,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (rwx,rwy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)    
 
                 # for left_hip_angle
-                if arr[12] < left_hip_angle < arr[13]:     
+                if arr[0][14] < left_hip_angle < arr[0][15]:     
                     lhx = int(left_hip[0] * 640)
                     lhy = int(left_hip[1] * 480)
 
@@ -208,7 +208,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lhx,lhy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
 
                 # for right_hip_angle
-                if arr[14] < right_hip_angle < arr[15]:
+                if arr[0][16] < right_hip_angle < arr[0][17]:
                     # Putting box and text for reference only
                     # cv2.rectangle(image, (0,40), (270,80), (0,255,0), -1)
                     # cv2.putText(image, 'Jip is Right', (10, 70),
@@ -226,7 +226,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (rhx,rhy), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)    
 
                 # for left_knee_angle
-                if arr[16] < left_knee_angle < arr[17]:    
+                if arr[0][18] < left_knee_angle < arr[0][19]:    
                     lkx = int(left_knee[0] * 640)
                     lky = int(left_knee[1] * 480)
 
@@ -239,7 +239,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lkx,lky), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)  
 
                 # for right_knee_angle
-                if arr[18] < right_knee_angle < arr[19]:
+                if arr[0][20] < right_knee_angle < arr[0][21]:
                     rkx = int(right_knee[0] * 640)
                     rky = int(right_knee[1] * 480)
 
@@ -252,7 +252,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (rkx,rky), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)    
 
                 # for left_ankle_angle
-                if arr[20] < left_ankle_angle < arr[21]:     
+                if arr[0][22] < left_ankle_angle < arr[0][23]:     
                     lax = int(left_ankle[0] * 640)
                     lay = int(left_ankle[1] * 480)
 
@@ -265,7 +265,7 @@ def exercise_processing(arr):
                     cv2.circle(image, (lax,lay), 10, (0,0,255), 5)      # cv2.circle(image, center_coordinates, radius, color, thickness)
 
                 # for right_ankle_angle
-                if arr[22] < right_ankle_angle < arr[23]:
+                if arr[0][24] < right_ankle_angle < arr[0][25]:
                     rax = int(right_ankle[0] * 640)
                     ray = int(right_ankle[1] * 480)
 
